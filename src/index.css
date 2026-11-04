@@ -1,0 +1,180 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-ink-50 font-sans text-ink-900 antialiased;
+    line-height: 1.5;
+  }
+
+  h1,
+  h2,
+  h3 {
+    line-height: 1.2;
+  }
+
+  ::selection {
+    background: #ed1c24;
+    color: #ffffff;
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 48px, 0);
+  transition:
+    opacity 900ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal-left {
+  transform: translate3d(-64px, 0, 0);
+}
+
+.reveal-right {
+  transform: translate3d(64px, 0, 0);
+}
+
+.reveal-scale {
+  transform: scale(0.92);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.hero-rise {
+  animation: hero-rise 1000ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--delay, 0ms);
+}
+
+.hero-reveal-image {
+  animation: image-unveil 1400ms cubic-bezier(0.77, 0, 0.18, 1) both;
+  animation-delay: 300ms;
+}
+
+.marquee-track {
+  animation: marquee 32s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.float-slow {
+  animation: float 6s ease-in-out infinite;
+}
+
+.float-slower {
+  animation: float 8s ease-in-out infinite reverse;
+}
+
+.wa-ring::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: rgba(37, 211, 102, 0.55);
+  animation: wa-ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.line-draw {
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 1600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.is-visible .line-draw,
+.line-draw.is-visible {
+  transform: scaleY(1);
+}
+
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 2px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.link-underline:hover {
+  background-size: 100% 2px;
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes image-unveil {
+  from {
+    clip-path: inset(0 0 100% 0 round 2rem);
+  }
+  to {
+    clip-path: inset(0 0 0 0 round 2rem);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -14px, 0);
+  }
+}
+
+@keyframes wa-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  80%,
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
